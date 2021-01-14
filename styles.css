@@ -1,0 +1,44 @@
+body {
+    background-color: lightblue;
+}
+
+.auth {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 30px;
+}
+
+.nav {
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.kanban {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.card-body {
+    width: 20rem;
+    height: 27rem;
+    overflow: auto;
+}
+
+.card-content {
+    padding: 5%;
+    margin-bottom: 5%;
+    background-color: rgb(238, 235, 235);
+    word-wrap: break-word;
+}
+
+#logout-btn {
+    position: absolute;
+    right: 30px;
+}
+
+p {
+    font-size: 12px;
+}
