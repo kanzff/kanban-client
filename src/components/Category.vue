@@ -1,22 +1,24 @@
 <template>
     <div class="col-md-3">
         <div class="card-category bg-light">
-            <div :class="recolor">{{category}}</div>
+            <div :class="recolor">{{category.toUpperCase()}}</div>
             <div class="card-body">
-                <task v-for="task in filterTasks" :key="task.id" :task="task" :category="category"></task>
+                <task v-for="task in filterTasks" :key="task.id" :task="task" :category="category" :changePage="changePage" :fetchTasks="fetchTasks" ></task>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-info">Add Task</button>
+                <button type="button" class="btn btn-info" @click="changePage('addForm')">Add Task</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+const baseUrl = 'http://localhost:3000'
+import axios from 'axios'
 import Task from "./Task"
 export default {
     name:"Category",
-    props: ['category', 'tasks'],
+    props: ['category', 'tasks', 'changePage', 'fetchTasks'],
     data() {
         return {
             color: ['card-header bg-danger', 'card-header bg-warning', 'card-header bg-success', 'card-header bg-primary']

@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <category v-for="(category, idx) in categories" :key="idx" :category="category" :tasks="tasks"></category>
+        <category v-for="(category, idx) in categories" :key="idx" :category="category" :tasks="tasks" :changePage="changePage" :fetchTasks="fetchTasks"></category>
     </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
     components: {
         Category
     },
-    props: ['categories', 'tasks']
+    props: ['categories', 'tasks', 'changePage', 'fetchTasks']
 }
 </script>
 

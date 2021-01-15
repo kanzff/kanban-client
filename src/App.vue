@@ -7,8 +7,10 @@
           </div>
       </div>
       <register-form v-if="currentPage == 'register'" :changePage="changePage"></register-form>
-      <login-form v-else-if="currentPage == 'login'" :changePage="changePage"></login-form>
-      <home v-else :categories="categories" :tasks="tasks"></home>
+      <login-form v-else-if="currentPage == 'login'" :changePage="changePage" :fetchTasks="fetchTasks"></login-form>
+      <add-form v-else-if="currentPage == 'addForm'" :changePage="changePage"></add-form>
+      <edit-form v-else-if="currentPage == 'editForm'" :changePage="changePage"></edit-form>
+      <home v-else :categories="categories" :tasks="tasks" :changePage="changePage" :fetchTasks="fetchTasks"></home>
   </div>
 </template>
 
@@ -17,7 +19,9 @@ const baseUrl = 'http://localhost:3000'
 import axios from "axios"
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
-import Home from "./components/Home"
+import Home from "./components/Home";
+import AddForm from "./components/AddForm";
+import EditForm from "./components/EditForm"
 
 export default {
     name: "App",
@@ -32,7 +36,9 @@ export default {
     components: {
         LoginForm,
         RegisterForm,
-        Home
+        Home,
+        AddForm,
+        EditForm
     },
     methods: {
         changePage(page) {
@@ -41,9 +47,14 @@ export default {
         },
         logout() {
             localStorage.clear()
+            // var auth2 = gapi.auth2.getAuthInstance();
+            // auth2.signOut().then(function () {
+            //     console.log('User signed out.');
+            // });
+
             this.changePage('login')
         },
-        fetchTask() {
+        fetchTasks() {
             axios({
                 method: "GET",
                 url: `${baseUrl}/tasks`,
@@ -63,7 +74,7 @@ export default {
         if (!localStorage.access_token) {
             this.changePage('login')
         } else {
-            this.fetchTask()
+            this.fetchTasks()
             this.changePage('home')
         }
     }

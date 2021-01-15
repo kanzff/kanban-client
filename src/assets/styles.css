@@ -24,8 +24,12 @@ body {
 .card-category {
     margin-top: 15px;
     width: 310px;
-    height: 560px;
+    height: 510px;
 
+}
+
+.card-header {
+    font-weight: bold;
 }
 
 .card-body {
@@ -48,4 +52,8 @@ body {
 
 p {
     font-size: 12px;
+}
+
+.btn-sm {
+    text-decoration: none;
 }

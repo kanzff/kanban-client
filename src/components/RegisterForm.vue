@@ -32,7 +32,7 @@ export default {
     props: ['changePage'],
     methods: {
         register() {
-            console.log(this.emailRegister, this.passwordRegister, this.passwordRegisterConfirm)
+            // console.log(this.emailRegister, this.passwordRegister, this.passwordRegisterConfirm)
             if (this.passwordRegister == this.passwordRegisterConfirm) {
                 axios({
                     method: 'POST',

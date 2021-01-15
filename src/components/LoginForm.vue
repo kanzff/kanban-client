@@ -8,6 +8,8 @@
                     <input class="rounded" type="password" placeholder="Password" v-model="password"><br><br>
                     <button class="btn btn-light rounded" type="submit" id="login-btn">Login</button>
                     <button class="btn btn-primary" style="margin-left: 220px;" @click="changePage('register')">Register</button>
+                    <br><br><br>
+                    <div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 0px;"></div>
                 </form>
             </div>
         </div>
@@ -25,7 +27,7 @@ export default {
             password: ''
         }
     },
-    props: ['changePage'],
+    props: ['changePage', 'fetchTasks'],
     methods: {
         login() {
             axios({
@@ -39,11 +41,28 @@ export default {
             .then(({data}) => {
                 console.log(data)
                 localStorage.setItem('access_token', data.access_token)
+                this.fetchTasks()
                 this.changePage('home')
             })
             .catch(err => {
                 console.log(err)
             })
+        },
+        onSignIn(googleUser) {
+            const id_token = googleUser.getAuthResponse().id_token;
+            axios({
+                method: 'POST',
+                url: `${baseUrl}/googleLogin`,
+                data: { id_token },
+            })
+            .then(({data}) => {
+                localStorage.setItem('access_token', response.access_token);
+                this.changePage('home')
+                this.fetchTasks()
+            })
+            .catch(err => {
+                console.log(err)
+            });
         }
     }
 }
