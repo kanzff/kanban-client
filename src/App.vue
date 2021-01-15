@@ -8,11 +8,12 @@
       </div>
       <register-form v-if="currentPage == 'register'" :changePage="changePage"></register-form>
       <login-form v-else-if="currentPage == 'login'" :changePage="changePage"></login-form>
-      <home v-else></home>
+      <home v-else :categories="categories" :tasks="tasks"></home>
   </div>
 </template>
 
 <script>
+const baseUrl = 'http://localhost:3000'
 import axios from "axios"
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
@@ -23,7 +24,9 @@ export default {
     data() {
         return {
             message: 'vue masuk',
-            currentPage: 'login',
+            currentPage: 'home',
+            categories: ['backlog', 'todo', 'doing', 'done'],
+            tasks: []
         }
     },
     components: {
@@ -39,12 +42,28 @@ export default {
         logout() {
             localStorage.clear()
             this.changePage('login')
+        },
+        fetchTask() {
+            axios({
+                method: "GET",
+                url: `${baseUrl}/tasks`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .then(({data}) => {
+                this.tasks = data
+            })
+            .catch(err => {
+                console.log(err)
+            })
         }
     },
     created() {
-        if (localStorage.access_token) {
+        if (!localStorage.access_token) {
             this.changePage('login')
         } else {
+            this.fetchTask()
             this.changePage('home')
         }
     }

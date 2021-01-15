@@ -38,6 +38,7 @@ export default {
             })
             .then(({data}) => {
                 console.log(data)
+                localStorage.setItem('access_token', data.access_token)
                 this.changePage('home')
             })
             .catch(err => {
