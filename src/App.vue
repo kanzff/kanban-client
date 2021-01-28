@@ -15,7 +15,7 @@
 </template>
 
 <script>
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://kanban-kanzff.herokuapp.com'
 import axios from "axios"
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";

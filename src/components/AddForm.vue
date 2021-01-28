@@ -21,7 +21,7 @@
 </template>
 
 <script>
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://kanban-kanzff.herokuapp.com'
 import axios from 'axios'
 export default {
     name: "AddForm",
