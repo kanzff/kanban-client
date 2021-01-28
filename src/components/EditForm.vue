@@ -3,7 +3,7 @@
         <div class="col-4 offset-4 bg-info rounded" style="margin-top: 20px; margin-bottom: 20px;padding: 30px;">
             <div class="editForm">
                 <h2 style="text-shadow: white 1px 1px;">Edit Task</h2><br>
-                <form @submit.prevent="editTask">
+                <form @submit.prevent="editTask(taskId)">
                     <input class="rounded" type="text" placeholder="Title" v-model="titleEdit"><br><br>
                     <input class="rounded" type="text" placeholder="Description" v-model="descriptionEdit"><br><br>
                     <select class="rounded" v-model="categoryEdit">
@@ -25,7 +25,7 @@ const baseUrl = 'http://localhost:3000'
 import axios from 'axios'
 export default {
     name: "EditForm",
-    props: ['changePage'],
+    props: ['changePage', 'fetchTasks', 'taskId'],
     data() {
         return {
             titleEdit: '',
@@ -34,10 +34,11 @@ export default {
         }
     },
     methods: {
-        editTask() {
+        editTask(id) {
+            console.log(this.taskId)
             axios({
-                methods: 'PUT',
-                url: `${baseUrl}/tasks`,
+                method: 'PUT',
+                url: `${baseUrl}/tasks/${id}`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -50,6 +51,7 @@ export default {
             .then(({data}) => {
                 console.log('masuk then edit')
                 // console.log(data)
+                this.fetchTasks()
                 this.changePage('home')
             })
             .catch(err => {

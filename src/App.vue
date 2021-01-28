@@ -8,9 +8,9 @@
       </div>
       <register-form v-if="currentPage == 'register'" :changePage="changePage"></register-form>
       <login-form v-else-if="currentPage == 'login'" :changePage="changePage" :fetchTasks="fetchTasks"></login-form>
-      <add-form v-else-if="currentPage == 'addForm'" :changePage="changePage"></add-form>
-      <edit-form v-else-if="currentPage == 'editForm'" :changePage="changePage"></edit-form>
-      <home v-else :categories="categories" :tasks="tasks" :changePage="changePage" :fetchTasks="fetchTasks"></home>
+      <add-form v-else-if="currentPage == 'addForm'" :changePage="changePage" :fetchTasks="fetchTasks"></add-form>
+      <edit-form v-else-if="currentPage == 'editForm'" :changePage="changePage" :taskId="taskId" :fetchTasks="fetchTasks"></edit-form>
+      <home v-else :categories="categories" :tasks="tasks" :insertTaskId="insertTaskId" :changePage="changePage" :fetchTasks="fetchTasks"></home>
   </div>
 </template>
 
@@ -30,7 +30,8 @@ export default {
             message: 'vue masuk',
             currentPage: 'home',
             categories: ['backlog', 'todo', 'doing', 'done'],
-            tasks: []
+            tasks: [],
+            taskId: ''
         }
     },
     components: {
@@ -68,6 +69,9 @@ export default {
             .catch(err => {
                 console.log(err)
             })
+        },
+        insertTaskId(id) {
+            this.taskId = id
         }
     },
     created() {

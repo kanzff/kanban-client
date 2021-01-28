@@ -25,7 +25,7 @@ const baseUrl = 'http://localhost:3000'
 import axios from 'axios'
 export default {
     name: "AddForm",
-    props: ['changePage'],
+    props: ['changePage', 'fetchTasks'],
     data() {
         return {
             titleAdd: '',
@@ -38,7 +38,7 @@ export default {
             // console.log(this.titleAdd, this.descriptionAdd, this.categoryAdd)
             // console.log('masuk create')
             axios({
-                methods: 'POST',
+                method: 'POST',
                 url: `${baseUrl}/tasks`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -49,14 +49,14 @@ export default {
                     category: this.categoryAdd
                 }
             })
-            .then(({data}) => {
-                console.log('masuk then')
-                // console.log(data)
-                this.changePage('home')
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .then(({data}) => {
+                    console.log('masuk then')
+                    this.fetchTasks()
+                    this.changePage('home')
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     }
 }
