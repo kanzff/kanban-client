@@ -49,6 +49,7 @@ export default {
             })
         },
         onSignIn(googleUser) {
+            console.log('masuk onsign in')
             const id_token = googleUser.getAuthResponse().id_token;
             axios({
                 method: 'POST',
@@ -56,7 +57,8 @@ export default {
                 data: { id_token },
             })
             .then(({data}) => {
-                localStorage.setItem('access_token', response.access_token);
+                console.log('mausk then google login')
+                localStorage.setItem('access_token', data.access_token);
                 this.changePage('home')
                 this.fetchTasks()
             })
@@ -65,6 +67,11 @@ export default {
             });
         }
     }
+    // mounted() {
+    //     gapi.signin2.render('google-signin-btn', { // this is the button "id"
+    //     onsuccess: this.onSignIn // note, no "()" here
+    //     })
+    // }
 }
 </script>
 
